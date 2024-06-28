@@ -2,30 +2,31 @@
   <h1>ops_tool</h1>
 </div>
 
-<div>
-<h2> ℹ️ 项目简介</h2>
+
+## ℹ️ 项目简介
 <p>架构图非常的好理解，相当于一个handler一个工具接口。</p>
-</div>
 
-<h2> 🧰 工具目录</h2>
-<ul>
-  <li><a href="#jenkins构建后钉钉通知">Jenkins构建后钉钉通知</a></li>
-  <li>...</li>
-</ul>
 
-<h2>统一配置</h2>
+## 🧰 工具目录
 
-<h3>response响应参数</h3>
-<p>response是响应全部工具的配置</p>
-<pre><code>type ResponseData struct {
+- [jenkins构建钉钉通知](#Jenkins构建钉钉通知)
+
+
+## 统一配置
+
+### response响应参数
+response是响应全部工具的配置
+```go
+type ResponseData struct {
   Code ResCode     `json:"code"`
   Msg  interface{} `json:"msg"`
   Data interface{} `json:"data,omitempty"` // omitempty 没有值就不展示
 }
-</code></pre>
+```
 
-<h3>conf的system配置</h3>
-<pre><code class="language-yaml"># 全局配置
+### conf的system配置
+```go
+# 全局配置
 system:
   app:
     # 设定模式(debug/release/test,正式版改为release)
@@ -49,29 +50,28 @@ system:
     dbname: "dingding"
     max_open_cons: 10
     max_idle_cons: 20
-</code></pre>
+```
 
-<h2>工具接口：</h2>
+## 工具接口
 
-<h3 id="jenkins构建后钉钉通知">Jenkins构建后钉钉通知</h3>
+### jenkins构建钉钉通知
 
-<h4>request请求参数</h4>
-<p>详细打开swagger中进行查看：http://x.x.x.x:x/swagger/index.html</p>
-<pre><code>type JenkinsDingTalkRequest struct {
+#### request请求参数
+详细打开swagger中进行查看：http://x.x.x.x:x/swagger/index.html
+```go
+type JenkinsDingTalkRequest struct {
   Name   string `json:"name" binding:"required"`
   Url    string `json:"url" binding:"required"`
   Id     int    `json:"id" binding:"required"`
   Branch string `json:"branch" binding:"required"`
 }
-</code></pre>
+````
 
-<h4>服务启动流程</h4>
+#### 服务启动流程
 
-<ul>
-  <li>首先在jenkins的pipeline流水线的pipeline块加入post块</li>
-</ul>
-
-<pre><code>#!groovy
+- 首先在jenkins的pipeline流水线的pipeline块加入post块
+```shell
+#!groovy
 pipeline {
   agent any
 
@@ -94,13 +94,11 @@ pipeline {
     }
   }
 }
-</code></pre>
+```
 
-<ul>
-  <li>conf需要的钉钉的webhook接口，请自查询如何获取；jenkins，mysql账号密码等</li>
-</ul>
-
-<pre><code># 全局配置
+- conf需要的钉钉的webhook接口，请自查询如何获取；jenkins，mysql账号密码等
+```yaml
+# 全局配置
 system:
   app:
     # 设定模式(debug/release/test,正式版改为release)
@@ -132,13 +130,11 @@ jenkinsDingTalk:
     password: ""
   dingDing:
     token: ""
-</code></pre>
+```
 
-<ul>
-  <li>执行数据库sql创建数据库</li>
-</ul>
-
-<pre><code>SET NAMES utf8mb4;
+- 执行数据库sql创建数据库
+```sql
+SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
 
 -- ----------------------------
@@ -166,10 +162,8 @@ INSERT INTO `dingding` (`id`, `username`, `name`, `number`) VALUES (2, 'si.li', 
 COMMIT;
 
 SET FOREIGN_KEY_CHECKS = 1;
-</code></pre>
+```
 
-<ul>
-  <li>启动程序即可，通过apipost调用结果</li>
-</ul>
+- 启动程序即可，通过apipost调用结果
 <img src="static/image.png" alt="image">
 <img src="static/image1.png" alt="image1">
