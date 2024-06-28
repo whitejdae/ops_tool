@@ -1,0 +1,56 @@
+definitions:
+  controller.ResCode:
+    enum:
+    - 1000
+    - 1001
+    - 1002
+    type: integer
+    x-enum-varnames:
+    - CodeSuccess
+    - CodeInvalidParam
+    - CodeServerBusy
+  controller.ResponseData:
+    properties:
+      code:
+        $ref: '#/definitions/controller.ResCode'
+      data:
+        description: omitempty 没有值就不展示
+      msg: {}
+    type: object
+info:
+  contact: {}
+paths:
+  /jenkins/jkDingTalk:
+    get:
+      consumes:
+      - application/json
+      description: 构建环境;构建人,构建的项目名,构建的分支名,构建的URL,构建ID,执行时间,状态
+      parameters:
+      - in: query
+        name: branch
+        required: true
+        type: string
+      - in: query
+        name: id
+        required: true
+        type: integer
+      - description: required为必须
+        in: query
+        name: name
+        required: true
+        type: string
+      - in: query
+        name: url
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/controller.ResponseData'
+      summary: jenkins构建钉钉通知接口
+      tags:
+      - jenkins相关接口
+swagger: "2.0"
