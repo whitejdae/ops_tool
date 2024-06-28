@@ -1,4 +1,4 @@
 # idea,*.log
 .idea
 *.log
-conf/config.yaml
+config.yaml
