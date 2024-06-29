@@ -7,7 +7,7 @@ import (
 	"net/http"
 	"ops_tool/conf"
 	"ops_tool/controller"
-	_ "ops_tool/docs" // 千万不要忘了导入把你上一步生成的docs
+	// 千万不要忘了导入把你上一步生成的docs
 	"ops_tool/public"
 )
 
