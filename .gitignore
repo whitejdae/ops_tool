@@ -1,5 +1,4 @@
-# idea,*.log
 .idea
 *.log
 .DS_Store
-config.yaml
+/config.yaml
