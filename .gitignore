@@ -2,6 +2,6 @@
 .idea
 *.log
 .DS_Store
-/config.yaml
+/conf.yaml
 /docs
 
