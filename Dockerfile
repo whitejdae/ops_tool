@@ -33,8 +33,8 @@ COPY ./dao/mysql/dinding.sql /docker-entrypoint-initdb.d/
 EXPOSE 3306
 
 # 启动容器时运行的命令
-CMD ["./ops_tool"]
-
-# go build
+# docker build .
 # docker run --name mysql -p 3306:3306 -v /Users/zhan/docker/mysql:/var/lib/mysql -d mysql:5.6
 # docker run --link=mysql:mysql -p 8090:8090 ops_tool:latest
+CMD ["./ops_tool"]
+
