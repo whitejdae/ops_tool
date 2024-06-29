@@ -21,7 +21,6 @@ CREATE TABLE `dingding` (
 -- ----------------------------
 BEGIN;
 INSERT INTO `dingding` (`id`, `username`, `name`, `number`) VALUES (1, 'san.zhang', '张三', '12345678910');
-INSERT INTO `dingding` (`id`, `username`, `name`, `number`) VALUES (2, 'si.li', '李四', '12345678910');
 
 COMMIT;
 
